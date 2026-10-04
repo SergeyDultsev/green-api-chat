@@ -12,13 +12,13 @@ export default defineConfig({
   base: "/green-api-chat/",
   resolve: {
      alias: {
-         '@': path.resolve(__dirname, 'src'),
-         '@app': path.resolve(__dirname, 'src/app'),
-         '@assets': path.resolve(__dirname, 'src/assets'),
-         '@modules': path.resolve(__dirname, 'src/modules'),
-         '@providers': path.resolve(__dirname, 'src/providers'),
-         '@pages': path.resolve(__dirname, 'src/pages'),
-         '@shared': path.resolve(__dirname, 'src/shared'),
+         '@': path.resolve(import.meta.dirname, 'src'),
+         '@app': path.resolve(import.meta.dirname, 'src/app'),
+         '@assets': path.resolve(import.meta.dirname, 'src/assets'),
+         '@modules': path.resolve(import.meta.dirname, 'src/modules'),
+         '@providers': path.resolve(import.meta.dirname, 'src/providers'),
+         '@pages': path.resolve(import.meta.dirname, 'src/pages'),
+         '@shared': path.resolve(import.meta.dirname, 'src/shared'),
      },
   },
 })

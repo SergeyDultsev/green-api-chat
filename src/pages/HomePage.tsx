@@ -1,4 +1,4 @@
-import ChatBar from "../modules/chat/ui/ChatBar.tsx";
+import { ChatBar } from "@modules/chat";
 
 const HomePage: React.FC = () => {
     return (

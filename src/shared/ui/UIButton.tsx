@@ -3,6 +3,7 @@ interface IPropsButton {
     children?: React.ReactNode;
     icon?: React.ReactNode;
     text?: React.ReactNode;
+    type?: string,
     disabled?: boolean;
     isActive?: boolean;
     className?: string;
@@ -14,6 +15,7 @@ const UIButton: React.FC<IPropsButton> = (
         children,
         icon,
         text,
+        type,
         disabled,
         isActive,
         className
@@ -22,7 +24,7 @@ const UIButton: React.FC<IPropsButton> = (
     return (
         <button
             className={[
-                'p-2 flex items-center justify-center gap-2 rounded cursor-pointer hover:bg-[#0a68cd]',
+                'pt-2 pb-2 pr-3 pl-3 flex items-center justify-center gap-2 rounded cursor-pointer hover:bg-[#0a68cd]',
                 'bg-[#007aff] text-white/80',
                 isActive && 'ring-2 ring-offset-1',
                 disabled && 'opacity-50 cursor-not-allowed',
@@ -30,6 +32,7 @@ const UIButton: React.FC<IPropsButton> = (
             ].filter(Boolean).join(' ')}
             onClick={onClick}
             disabled={disabled}
+            type={type}
         >
             {icon}
             {children ?? text}
