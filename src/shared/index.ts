@@ -1,8 +1,9 @@
 /**
  * Иконки
  */
-export { default as AddIcon } from './icons/AddIcon';
+export { default as UserAddIcon } from './icons/UserAddIcon.tsx';
 export { default as SentIcon } from './icons/SentIcon';
+export { default as ExitIcon } from './icons/ExitIcon';
 
 /**
  * UI
