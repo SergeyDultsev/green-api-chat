@@ -10,3 +10,8 @@ export { default as ExitIcon } from './icons/ExitIcon';
  */
 export { default as UIButton } from './ui/UIButton';
 export { default as UIInput } from './ui/UIInput';
+
+/**
+ * хуки
+ */
+export { useCredentials } from './hooks/useCredentials';

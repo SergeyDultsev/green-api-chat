@@ -1,13 +1,13 @@
 import type { tCredentials } from "@shared/types/tCredentials.ts";
 
-export const getStateInstance = async ({
+export const getChats = async ({
   idInstance,
   apiTokenInstance,
 }: tCredentials) => {
     const url =
         `${import.meta.env.VITE_GREEN_API_URL}` +
         `/waInstance${idInstance}` +
-        `/getStateInstance/${apiTokenInstance}`;
+        `/getChats/${apiTokenInstance}`;
 
     const response = await fetch(url, {
         method: "GET",

@@ -1,4 +1,4 @@
-export type Credentials = {
+export type tCredentials = {
     idInstance: string;
     apiTokenInstance: string;
 };

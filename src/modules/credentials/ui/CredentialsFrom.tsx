@@ -1,7 +1,7 @@
 import { UIButton, UIInput } from "@/shared";
 import { useState} from "react";
 import { useCredentials } from "@modules/credentials/model/credentials.queries.ts";
-import type { Credentials } from "@modules/credentials/model/types.ts";
+import type { tCredentials } from "@shared/types/tCredentials.ts";
 import { useNavigate } from "react-router-dom";
 
 const CredentialsFrom: React.FC = () => {
@@ -15,7 +15,7 @@ const CredentialsFrom: React.FC = () => {
         apiTokenInstance: '',
     });
 
-    const setFromCredentials = (fieldName: keyof Credentials, value: string | number) => {
+    const setFromCredentials = (fieldName: keyof tCredentials, value: string | number) => {
         setError(null);
 
         setCredentials(old  => ({
@@ -29,7 +29,6 @@ const CredentialsFrom: React.FC = () => {
 
         try {
             const data = await credentialsMutation.mutateAsync(credentials);
-            console.log(data);
 
             if (data.stateInstance) {
                 sessionStorage.setItem(

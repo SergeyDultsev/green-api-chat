@@ -1,19 +1,21 @@
 import type { tCredentials } from "@shared/types/tCredentials.ts";
+import type { tMessage } from "@shared/types/tMessage.ts";
 
-export const getStateInstance = async ({
-  idInstance,
-  apiTokenInstance,
-}: tCredentials) => {
+export const getMessages = async (
+    { idInstance, apiTokenInstance }: tCredentials,
+    chatId: string,
+): Promise<tMessage[]> => {
     const url =
         `${import.meta.env.VITE_GREEN_API_URL}` +
         `/waInstance${idInstance}` +
-        `/getStateInstance/${apiTokenInstance}`;
+        `/getChatHistory/${apiTokenInstance}`;
 
     const response = await fetch(url, {
-        method: "GET",
+        method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
+        body: JSON.stringify({ chatId }),
         mode: "cors",
     });
 
