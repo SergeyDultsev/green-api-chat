@@ -18,7 +18,7 @@ export const getStateInstance = async ({
     });
 
     if (!response.ok) {
-        throw new Error('Не удалось проверить инстанс');
+        throw new Error(`Ошибка API: ${response.status}`);
     }
 
     return response.json();

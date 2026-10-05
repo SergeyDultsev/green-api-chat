@@ -5,6 +5,8 @@ import type { Credentials } from "@modules/credentials/model/types.ts";
 import { useNavigate } from "react-router-dom";
 
 const CredentialsFrom: React.FC = () => {
+    const [error, setError] = useState<string | null>(null);
+
     const navigate = useNavigate();
     const credentialsMutation = useCredentials();
 
@@ -14,6 +16,8 @@ const CredentialsFrom: React.FC = () => {
     });
 
     const setFromCredentials = (fieldName: keyof Credentials, value: string | number) => {
+        setError(null);
+
         setCredentials(old  => ({
             ...old ,
             [fieldName]: value,
@@ -23,15 +27,20 @@ const CredentialsFrom: React.FC = () => {
     const handleCredentials = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const data = await credentialsMutation.mutateAsync(credentials);
+        try {
+            const data = await credentialsMutation.mutateAsync(credentials);
+            console.log(data);
 
-        if (data.stateInstance) {
-            sessionStorage.setItem(
-                'credentials',
-                JSON.stringify(credentials)
-            );
+            if (data.stateInstance) {
+                sessionStorage.setItem(
+                    'credentials',
+                    JSON.stringify(credentials)
+                );
 
-            navigate('/');
+                navigate('/');
+            }
+        } catch (error) {
+            setError('Не удалось подключиться к инстансу. Проверьте введённые данные.');
         }
     };
 
@@ -42,6 +51,7 @@ const CredentialsFrom: React.FC = () => {
                 type={'text'}
                 name={'idInstance'}
                 onChange={setFromCredentials}
+                isError={!!error}
                 required={true}
             />
             <UIInput
@@ -49,13 +59,21 @@ const CredentialsFrom: React.FC = () => {
                 type={'text'}
                 name={'apiTokenInstance'}
                 onChange={setFromCredentials}
+                isError={!!error}
                 required={true}
             />
             <UIButton
                 type="submit"
-                text='Сохранить'
+                text={credentialsMutation.isPending ? 'Проверка...' : 'Сохранить'}
+                disabled={credentialsMutation.isPending}
                 className='w-full'
             />
+
+            {error && (
+                <p className="text-center w-full rounded-md border border-red-500/40 bg-red-500/10 p-3 text-sm text-red-400">
+                    { error }
+                </p>
+            )}
         </form>
     );
 }
