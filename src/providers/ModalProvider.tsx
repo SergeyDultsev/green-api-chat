@@ -46,7 +46,11 @@ const ModalProvider: React.FC<tModalProviderProps> = ({ children }) => {
                     className='bg-[#17181c]/50 fixed top-0 z-10  flex items-center justify-center h-screen w-full'
                     onClick={closeModal}
                 >
-                    {isOpen}
+                    <div
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {isOpen}
+                    </div>
                 </div>
             )}
         </ModalContext.Provider>

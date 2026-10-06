@@ -4,7 +4,7 @@ interface IPropsButton {
     children?: React.ReactNode;
     icon?: React.ReactNode;
     text?: React.ReactNode;
-    type?: string,
+    type?: 'button' | 'submit' | 'reset',
     disabled?: boolean;
     isActive?: boolean;
     className?: string;

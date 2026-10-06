@@ -4,7 +4,8 @@ import { useChats } from "@modules/chat/model/chat.queries.ts";
 import type { tChat } from "@shared/types/tChat.ts";
 import { useContext } from "react";
 import { ModalContext } from "@providers/ModalProvider.tsx";
-import CredentialsModalDisconnect from "@modules/credentials/ui/CredentialsModalDisconnect.tsx";
+import { CredentialsModalDisconnect } from "@modules/credentials";
+import { ChatModalAdd } from "@modules/chat";
 
 const ChatBar: React.FC = () => {
     const credentials = useCredentials();
@@ -24,6 +25,7 @@ const ChatBar: React.FC = () => {
             {/* Верхняя панель с действиями */}
             <div className='sticky top-0 z-10 flex flex-col gap-2 p-3 bg-[#17181c] border-b border-[#ffffff0f]'>
                 <UIButton
+                    onClick={() => modal?.openModal(<ChatModalAdd />)}
                     icon={<UserAddIcon />}
                     text={'Добавить контакт'}
                     className='w-full'

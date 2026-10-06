@@ -9,7 +9,12 @@ const Chat: React.FC = () => {
         bottonChatRef,
         messages,
         isLoadingMessage,
-        isErrorMessage
+        isErrorMessage,
+        message,
+        sendError,
+        isSending,
+        setFromMessage,
+        sendMessage
     } = useChat();
 
     return (
@@ -84,10 +89,10 @@ const Chat: React.FC = () => {
                         flex-1 text-center
                     '>
                             <div className='
-                            w-12 h-12 rounded-full bg-[#ffffff0a] flex items-center justify-center
-                            text-[#fffc]/40 text-xl
+                            rounded-full bg-[#ffffff0a] flex items-center justify-center
+                            text-[#fffc]/40 text-xl p-2
                         '>
-                                ✦
+                                GREEN-API
                             </div>
                             <p className='text-[#fffc]/60 text-sm max-w-[240px]'>
                                 Отправьте сообщение и начните общение!
@@ -100,21 +105,42 @@ const Chat: React.FC = () => {
 
                 {/* Панель ввода */}
                 <div className='
-                shrink-0 flex items-center gap-2 px-3 py-3
+                shrink-0 flex flex-col gap-2 px-3 py-3
                 bg-[#17181c] border-t border-[#ffffff0f] w-full
             '>
-                    <div className='flex-1 min-w-0'>
-                        <UIInput
-                            placeholder={'Сообщение...'}
-                            type={'text'}
-                            onChange={() => console.log('Набор сообщения')}
-                            required={true}
+                    {sendError && (
+                        <p className='
+                            w-full rounded-lg
+                            border border-red-500/40 bg-red-500/10
+                            p-2 text-sm text-red-400 text-center
+                        '>
+                            {sendError}
+                        </p>
+                    )}
+
+                    <form
+                        className='flex items-center gap-2 w-full'
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            sendMessage();
+                        }}
+                    >
+                        <div className='flex-1 min-w-0'>
+                            <UIInput
+                                placeholder={'Сообщение...'}
+                                type={'text'}
+                                onChange={setFromMessage}
+                                value={message}
+                                required={false}
+                            />
+                        </div>
+                        <UIButton
+                            icon={<SentIcon />}
+                            type={'submit'}
+                            disabled={isSending || !message.trim()}
+                            className='shrink-0'
                         />
-                    </div>
-                    <UIButton
-                        icon={<SentIcon />}
-                        className='shrink-0'
-                    />
+                    </form>
                 </div>
             </div>
         </div>

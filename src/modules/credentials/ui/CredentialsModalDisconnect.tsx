@@ -10,10 +10,13 @@ const CredentialsModalDisconnect: React.FC = () => {
     const toDisconnect = () => {
         sessionStorage.clear();
         navigate('/connect');
+        modal?.closeModal();
     }
 
     return (
-        <div className='bg-[#17181c] rounded-xl border border-[#ffffff0f] flex flex-col gap-5 p-6 w-full max-w-sm'>
+        <div
+            className='bg-[#17181c] rounded-xl border border-[#ffffff0f] flex flex-col gap-5 p-6 w-full max-w-sm'
+        >
 
             <div className='flex flex-col gap-2'>
                 <h3 className='text-[#fffc] text-lg font-semibold tracking-tight'>

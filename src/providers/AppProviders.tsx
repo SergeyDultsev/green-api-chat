@@ -6,11 +6,11 @@ import ModalProvider from "@providers/ModalProvider.tsx";
 
 const AppProviders = ({ children }: { children: React.ReactNode }) => (
     <BrowserRouter basename="/green-api-chat">
-        <ModalProvider>
-            <QueryProvider>
+        <QueryProvider>
+            <ModalProvider>
                 {children}
-            </QueryProvider>
-        </ModalProvider>
+            </ModalProvider>
+        </QueryProvider>
     </BrowserRouter>
 )
 
