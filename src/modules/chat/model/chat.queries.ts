@@ -3,7 +3,7 @@ import { getChats } from "@modules/chat/api/getChats.ts";
 import { getMessages } from "@modules/chat/api/getMessages.ts";
 import { sendMessage } from "@modules/chat/api/sendMessage.ts";
 import type { tCredentials } from "@shared/types/tCredentials.ts";
-import {checkAccount} from "@modules/chat/api/checkAccount.ts";
+import { checkAccount } from "@modules/chat/api/checkAccount.ts";
 
 export const chatKeys = {
     all: ['chats'] as const,

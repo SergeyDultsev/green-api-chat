@@ -27,12 +27,12 @@ const ChatModalAdd: React.FC = () => {
         }
 
         try {
-            await checkAccountMutation.mutateAsync({
+            const user = await checkAccountMutation.mutateAsync({
                 phoneNumber: Number(normalized),
             });
 
             modal?.closeModal();
-            navigate(`/chat/${normalized}@c.us`);
+            navigate(`/chat/${user?.chatId}`);
         } catch {
             setError('Не удалось найти получателя. Проверьте номер и попробуйте снова.');
         }
