@@ -1,4 +1,5 @@
 import type { tCredentials } from "@shared/types/tCredentials.ts";
+import { GREEN_API_URL } from "@shared/config.ts";
 
 export type CheckAccountResponse = {
     exist: boolean;
@@ -11,7 +12,7 @@ export const checkAccount = async (
     phoneNumber: number,
 ): Promise<CheckAccountResponse> => {
     const url =
-        `${import.meta.env.VITE_GREEN_API_URL}` +
+        `${GREEN_API_URL}` +
         `/waInstance${idInstance}` +
         `/checkAccount/${apiTokenInstance}`;
 

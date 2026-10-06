@@ -1,12 +1,13 @@
 import type { tCredentials } from "@shared/types/tCredentials.ts";
 import type { tMessage } from "@shared/types/tMessage.ts";
+import { GREEN_API_URL } from "@shared/config.ts";
 
 export const getMessages = async (
     { idInstance, apiTokenInstance }: tCredentials,
     chatId: string,
 ): Promise<tMessage[]> => {
     const url =
-        `${import.meta.env.VITE_GREEN_API_URL}` +
+        `${GREEN_API_URL}` +
         `/waInstance${idInstance}` +
         `/getChatHistory/${apiTokenInstance}`;
 

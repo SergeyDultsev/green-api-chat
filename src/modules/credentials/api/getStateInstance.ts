@@ -1,4 +1,5 @@
 import type { tCredentials } from "@shared/types/tCredentials.ts";
+import { GREEN_API_URL } from "@shared/config.ts";
 
 export type StateInstanceResponse = {
     stateInstance: string;
@@ -9,7 +10,7 @@ export const getStateInstance = async ({
   apiTokenInstance,
 }: tCredentials): Promise<StateInstanceResponse> => {
     const url =
-        `${import.meta.env.VITE_GREEN_API_URL}` +
+        `${GREEN_API_URL}` +
         `/waInstance${idInstance}` +
         `/getStateInstance/${apiTokenInstance}`;
 

@@ -1,11 +1,12 @@
 import type { tCredentials } from "@shared/types/tCredentials.ts";
+import { GREEN_API_URL } from "@shared/config.ts";
 
 export const deleteNotification = async (
     { idInstance, apiTokenInstance }: tCredentials,
     receiptId: number,
 ) => {
     const url =
-        `${import.meta.env.VITE_GREEN_API_URL}` +
+        `${GREEN_API_URL}` +
         `/waInstance${idInstance}` +
         `/deleteNotification/${apiTokenInstance}/${receiptId}`;
 

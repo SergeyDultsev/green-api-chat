@@ -1,5 +1,6 @@
 import type { tCredentials } from "@shared/types/tCredentials.ts";
 import type { tNotification } from "@shared/types/tNotification.ts";
+import { GREEN_API_URL } from "@shared/config.ts";
 
 export type tReceiveNotificationResponse = {
     receiptId: number;
@@ -11,7 +12,7 @@ export const receiveNotification = async (
     receiveTimeout = 5,
 ): Promise<tReceiveNotificationResponse | null> => {
     const url =
-        `${import.meta.env.VITE_GREEN_API_URL}` +
+        `${GREEN_API_URL}` +
         `/waInstance${idInstance}` +
         `/receiveNotification/${apiTokenInstance}` +
         `?receiveTimeout=${receiveTimeout}`;

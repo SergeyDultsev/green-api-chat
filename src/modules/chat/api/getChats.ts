@@ -1,12 +1,13 @@
 import type { tCredentials } from "@shared/types/tCredentials.ts";
 import type { tChat } from "@shared/types/tChat.ts";
+import { GREEN_API_URL } from "@shared/config.ts";
 
 export const getChats = async ({
   idInstance,
   apiTokenInstance,
 }: tCredentials): Promise<tChat[]> => {
     const url =
-        `${import.meta.env.VITE_GREEN_API_URL}` +
+        `${GREEN_API_URL}` +
         `/waInstance${idInstance}` +
         `/getChats/${apiTokenInstance}`;
 

@@ -1,4 +1,5 @@
 import type { tCredentials } from "@shared/types/tCredentials.ts";
+import { GREEN_API_URL } from "@shared/config.ts";
 
 export const sendMessage = async (
     { idInstance, apiTokenInstance }: tCredentials,
@@ -6,7 +7,7 @@ export const sendMessage = async (
     message: string,
 ) => {
     const url =
-        `${import.meta.env.VITE_GREEN_API_URL}` +
+        `${GREEN_API_URL}` +
         `/waInstance${idInstance}` +
         `/sendMessage/${apiTokenInstance}`;
 
