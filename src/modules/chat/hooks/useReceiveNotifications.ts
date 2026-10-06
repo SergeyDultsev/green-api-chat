@@ -4,6 +4,7 @@ import type { tCredentials } from "@shared/types/tCredentials.ts";
 import { receiveNotification } from "@modules/chat/api/receiveNotification.ts";
 import { deleteNotification } from "@modules/chat/api/deleteNotification.ts";
 import { chatKeys } from "@modules/chat/model/chat.queries.ts";
+import { isMessageWebhook } from "@shared/types/tNotification.ts";
 
 const RECEIVE_TIMEOUT = 5;
 const RETRY_DELAY = 5000;
@@ -38,13 +39,20 @@ export const useReceiveNotifications = (credentials: tCredentials | null) => {
                 if (notification && active) {
                     await deleteNotification(creds, notification.receiptId);
 
-                    queryClient.invalidateQueries({ queryKey: chatKeys.list(creds) });
+                    const typeWebhook = notification.body?.typeWebhook;
 
-                    const chatId = notification.body?.senderData?.chatId;
-                    if (chatId) {
-                        queryClient.invalidateQueries({
-                            queryKey: chatKeys.messages(creds, chatId),
-                        });
+                    if (isMessageWebhook(typeWebhook)) {
+                        const chatId = notification.body?.senderData?.chatId;
+
+                        if (chatId) {
+                            queryClient.invalidateQueries({
+                                queryKey: chatKeys.messages(creds, chatId),
+                            });
+                        }
+                    }
+
+                    if (typeWebhook === "incomingMessageReceived") {
+                        queryClient.invalidateQueries({ queryKey: chatKeys.list(creds) });
                     }
                 }
 
