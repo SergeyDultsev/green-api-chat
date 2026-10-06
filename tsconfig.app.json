@@ -10,15 +10,14 @@
 
     /* Bundler mode */
     "moduleResolution": "bundler",
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@app/*": ["src/app/*"],
-      "@assets/*": ["src/assets/*"],
-      "@modules/*": ["src/modules/*"],
-      "@providers/*": ["src/providers/*"],
-      "@pages/*": ["src/pages/*"],
-      "@shared/*": ["src/shared/*"]
+      "@/*": ["./src/*"],
+      "@app/*": ["./src/app/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@modules/*": ["./src/modules/*"],
+      "@providers/*": ["./src/providers/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@shared/*": ["./src/shared/*"]
     },
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,

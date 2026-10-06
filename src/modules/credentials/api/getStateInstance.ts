@@ -1,9 +1,13 @@
 import type { tCredentials } from "@shared/types/tCredentials.ts";
 
+export type StateInstanceResponse = {
+    stateInstance: string;
+};
+
 export const getStateInstance = async ({
   idInstance,
   apiTokenInstance,
-}: tCredentials) => {
+}: tCredentials): Promise<StateInstanceResponse> => {
     const url =
         `${import.meta.env.VITE_GREEN_API_URL}` +
         `/waInstance${idInstance}` +
@@ -11,10 +15,6 @@ export const getStateInstance = async ({
 
     const response = await fetch(url, {
         method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        mode: "cors",
     });
 
     if (!response.ok) {

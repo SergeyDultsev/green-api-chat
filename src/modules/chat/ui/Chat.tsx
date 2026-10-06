@@ -6,7 +6,7 @@ import { useChat } from "@modules/chat/hooks/useChat.ts";
 const Chat: React.FC = () => {
     const {
         currentContact,
-        bottonChatRef,
+        bottomChatRef,
         messages,
         isLoadingMessage,
         isErrorMessage,
@@ -100,7 +100,7 @@ const Chat: React.FC = () => {
                         </div>
                     )}
 
-                    <div ref={bottonChatRef} />
+                    <div ref={bottomChatRef} />
                 </section>
 
                 {/* Панель ввода */}

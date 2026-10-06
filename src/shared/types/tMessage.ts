@@ -14,9 +14,9 @@ export type tMessage = {
     sendByApi?: boolean;
     isForwarded: boolean;
     forwardingScore: number;
-    deletedMessageId: string;
-    editedMessageId: string;
-    isEdited: boolean;
+    deletedMessageId?: string;
+    editedMessageId?: string;
+    isEdited?: boolean;
     isDeleted: boolean;
     isRead?: boolean;
     isReadTimestamp?: number;
@@ -24,7 +24,7 @@ export type tMessage = {
     downloadUrl?: string;
     fileName?: string;
     videoNote?: false;
-    deletedMessageData: {
+    deletedMessageData?: {
         stanzaId: string;
     }
 };

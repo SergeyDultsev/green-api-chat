@@ -1,21 +1,20 @@
 import { UIButton, UIInput } from "@/shared";
 import { useState} from "react";
-import { useCredentials } from "@modules/credentials/model/credentials.queries.ts";
-import type { tCredentials } from "@shared/types/tCredentials.ts";
+import { useCheckCredentials } from "@modules/credentials/model/credentials.queries.ts";
 import { useNavigate } from "react-router-dom";
 
 const CredentialsFrom: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
 
     const navigate = useNavigate();
-    const credentialsMutation = useCredentials();
+    const credentialsMutation = useCheckCredentials();
 
     const [credentials, setCredentials] = useState({
         idInstance: '',
         apiTokenInstance: '',
     });
 
-    const setFromCredentials = (fieldName: keyof tCredentials, value: string | number) => {
+    const setFromCredentials = (fieldName: string, value: string | number) => {
         setError(null);
 
         setCredentials(old  => ({
@@ -30,15 +29,18 @@ const CredentialsFrom: React.FC = () => {
         try {
             const data = await credentialsMutation.mutateAsync(credentials);
 
-            if (data.stateInstance) {
-                sessionStorage.setItem(
-                    'credentials',
-                    JSON.stringify(credentials)
-                );
-
-                navigate('/');
+            if (data.stateInstance !== 'authorized') {
+                setError('Инстанс не авторизован. Проверьте статус инстанса Green-API.');
+                return;
             }
-        } catch (error) {
+
+            sessionStorage.setItem(
+                'credentials',
+                JSON.stringify(credentials)
+            );
+
+            navigate('/');
+        } catch {
             setError('Не удалось подключиться к инстансу. Проверьте введённые данные.');
         }
     };

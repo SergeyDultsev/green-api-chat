@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useCredentials } from "@/shared";
 import { useChats, useMessages, useSendMessage } from "@modules/chat/model/chat.queries.ts";
-import type { tMessage } from "@shared/types/tMessage.ts";
+import { getRenderableMessages } from "@modules/chat/model/message.utils.ts";
 import { useEffect, useRef, useState } from "react";
 
 export const useChat = () => {
@@ -50,32 +50,14 @@ export const useChat = () => {
         }
     };
 
-    const getMessages = (messages: tMessage[]) => {
-        return messages.filter((message) => {
-            if (message.isDeleted) return false;
-
-            switch (message.typeMessage) {
-                case 'deletedMessage':
-                case 'videoMessage':
-                case 'imageMessage':
-                case 'audioMessage':
-                case 'stickerMessage':
-                case 'documentMessage':
-                    return false;
-                default:
-                    return true;
-            }
-        }).reverse();
-    }
-
     const messages = dataMessage
-        ? getMessages(dataMessage)
+        ? getRenderableMessages(dataMessage)
         : [];
 
-    const bottonChatRef = useRef<HTMLDivElement | null>(null);
+    const bottomChatRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-        bottonChatRef.current?.scrollIntoView({ behavior: "auto" });
+        bottomChatRef.current?.scrollIntoView({ behavior: "auto" });
     }, [messages?.length]);
 
     return {
@@ -83,7 +65,7 @@ export const useChat = () => {
         messages,
         isLoadingMessage,
         isErrorMessage,
-        bottonChatRef,
+        bottomChatRef,
         message,
         sendError,
         isSending,

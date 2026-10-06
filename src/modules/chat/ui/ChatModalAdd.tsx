@@ -26,13 +26,23 @@ const ChatModalAdd: React.FC = () => {
             return;
         }
 
+        if (normalized.length !== 11 && normalized.length !== 12) {
+            setError('Введите корректный номер телефона.');
+            return;
+        }
+
         try {
             const user = await checkAccountMutation.mutateAsync({
                 phoneNumber: Number(normalized),
             });
 
+            if (!user.exist) {
+                setError('Пользователь с таким номером не найден в MAX.');
+                return;
+            }
+
             modal?.closeModal();
-            navigate(`/chat/${user?.chatId}`);
+            navigate(`/chat/${user.chatId}`);
         } catch {
             setError('Не удалось найти получателя. Проверьте номер и попробуйте снова.');
         }
