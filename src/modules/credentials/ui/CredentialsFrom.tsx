@@ -44,35 +44,63 @@ const CredentialsFrom: React.FC = () => {
     };
 
     return (
-        <form className='flex items-center justify-center flex-col gap-4 w-[500px] p-4' onSubmit={handleCredentials}>
-            <UIInput
-                placeholder={'Введите idInstance'}
-                type={'text'}
-                name={'idInstance'}
-                onChange={setFromCredentials}
-                isError={!!error}
-                required={true}
-            />
-            <UIInput
-                placeholder={'Введите apiTokenInstance'}
-                type={'text'}
-                name={'apiTokenInstance'}
-                onChange={setFromCredentials}
-                isError={!!error}
-                required={true}
-            />
+        <form
+            className='
+                flex flex-col gap-5 w-full max-w-[420px]
+                p-6 rounded-2xl
+                bg-[#17181c] border border-[#ffffff0f]
+                shadow-2xl shadow-black/40
+            '
+            onSubmit={handleCredentials}
+        >
+            {/* Заголовок */}
+            <header className='flex flex-col gap-1.5 text-center'>
+                <h1 className='text-[#fffc] text-xl font-semibold tracking-tight'>
+                    Подключение
+                </h1>
+                <p className='text-[#fffc]/60 text-sm leading-relaxed'>
+                    Введите данные вашего инстанса Green-API, чтобы начать работу.
+                </p>
+            </header>
+
+            {/* Поля */}
+            <div className='flex flex-col gap-3'>
+                <UIInput
+                    placeholder={'idInstance'}
+                    type={'text'}
+                    name={'idInstance'}
+                    onChange={setFromCredentials}
+                    isError={!!error}
+                    required={true}
+                />
+                <UIInput
+                    placeholder={'apiTokenInstance'}
+                    type={'text'}
+                    name={'apiTokenInstance'}
+                    onChange={setFromCredentials}
+                    isError={!!error}
+                    required={true}
+                />
+            </div>
+
+            {/* Ошибка */}
+            {error && (
+                <p className='
+                    w-full rounded-lg
+                    border border-red-500/40 bg-red-500/10
+                    p-3 text-sm text-red-400 text-center
+                '>
+                    {error}
+                </p>
+            )}
+
+            {/* Кнопка */}
             <UIButton
                 type="submit"
                 text={credentialsMutation.isPending ? 'Проверка...' : 'Сохранить'}
                 disabled={credentialsMutation.isPending}
                 className='w-full'
             />
-
-            {error && (
-                <p className="text-center w-full rounded-md border border-red-500/40 bg-red-500/10 p-3 text-sm text-red-400">
-                    { error }
-                </p>
-            )}
         </form>
     );
 }

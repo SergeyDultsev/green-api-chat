@@ -43,7 +43,7 @@ const ModalProvider: React.FC<tModalProviderProps> = ({ children }) => {
 
             {isOpen && (
                 <div
-                    className={'modal-overlay'}
+                    className='bg-[#17181c]/50 fixed top-0 z-10  flex items-center justify-center h-screen w-full'
                     onClick={closeModal}
                 >
                     {isOpen}
