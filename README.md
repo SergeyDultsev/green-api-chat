@@ -4,6 +4,12 @@
 - Подключение через idInstance и apiTokenInstance
 - Интерфейс похож на интерфейс мессенджера MAX
 
+# Превью
+<img src="./public/img/preview/connect.jpg" width="600"> 
+<img src="./public/img/preview/chat.jpg" width="600">
+<img src="./public/img/preview/add-contact.jpg" width="600">
+<img src="./public/img/preview/disconnect-modal.jpg" width="600">
+
 ## Технологии
 - TypeScript + React
 - Tailwind CSS
