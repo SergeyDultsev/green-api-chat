@@ -23,5 +23,8 @@ export type tMessage = {
     caption?: string;
     downloadUrl?: string;
     fileName?: string;
-    videoNote?: false
+    videoNote?: false;
+    deletedMessageData: {
+        stanzaId: string;
+    }
 };

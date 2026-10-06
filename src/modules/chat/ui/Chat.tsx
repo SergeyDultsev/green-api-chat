@@ -1,26 +1,23 @@
 import UIButton from "@shared/ui/UIButton.tsx";
 import SentIcon from "@shared/icons/SentIcon.tsx";
 import UIInput from "@shared/ui/UIInput.tsx";
-import { useCredentials } from "@/shared";
-import { useParams } from "react-router-dom";
-import { useMessages } from "@modules/chat/model/chat.queries.ts";
+import { useChat } from "@modules/chat/hooks/useChat.ts";
 
 const Chat: React.FC = () => {
-    const { id } = useParams();
-    const credentials = useCredentials();
-    const { data, isLoading, isError } = useMessages(credentials, id);
-
-    const messages = data
-        ?.filter(item => !item.isDeleted && !item.mimeType)
-        .slice()
-        .reverse();
+    const {
+        currentContact,
+        bottonChatRef,
+        messages,
+        isLoadingMessage,
+        isErrorMessage
+    } = useChat();
 
     return (
         <div className='flex flex-1 justify-center min-w-0 h-full'>
             <div className='flex flex-col w-full h-full max-w-[800px] border-x-2 border-[#ffffff0f]'>
 
                 <div className='shrink-0  flex flex-col p-3 border-b-2 bg-[#17181c] border-[#ffffff0f] text-[#fffc] z-10'>
-                    шапка
+                    { currentContact?.name ?? 'Имя собеседника' }
                 </div>
 
                 <section className='
@@ -31,22 +28,30 @@ const Chat: React.FC = () => {
                     [&::-webkit-scrollbar-thumb]:rounded-full
                     hover:[&::-webkit-scrollbar-thumb]:bg-[#ffffff33]
                 '>
-                    {isLoading && (
+                    {isLoadingMessage && (
                         <p className='text-[#fffc]'>Загрузка…</p>
                     )}
-                    {isError && (
+                    {isErrorMessage && (
                         <p className='text-[#fffc]'>Не удалось загрузить сообщения…</p>
                     )}
-                    {!isLoading && !isError && messages.map((message) => (
+                    {!isLoadingMessage && !isErrorMessage && messages.map((message) => (
                         <article
                             key={message.idMessage}
-                            className={`flex p-2 bg-[#007aff] text-[#fffc] rounded ${
-                                message.type === 'incoming' ? 'self-start' : 'self-end'
+                            className={`flex p-2 text-[#fffc] rounded ${
+                                message.type === 'incoming' ? 'self-start bg-[#007aff]' : 'self-end rounded-md border border-blue-500/40 bg-blue-500/10'
                             }`}
                         >
                             {message.textMessage}
                         </article>
                     ))}
+
+                    {messages.length === 0 && !isLoadingMessage && (
+                        <p className="text-center w-full rounded-md border border-blue-500/40 bg-blue-500/10 text-[#fffc] p-3">
+                            Отправьте сообщение и начните общение!
+                        </p>
+                    )}
+
+                    <div ref={bottonChatRef} />
                 </section>
 
                 <div className='shrink-0 flex gap-2 p-3 bg-[#17181c] border-t-2 border-[#ffffff0f] w-full'>
